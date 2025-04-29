@@ -19,7 +19,7 @@ int main() {
             break;
         }
 
-        cv::imshow("Webcam Feed", detectFace(frame));
+        cv::imshow("Camface", detectFace(frame));
         if (cv::waitKey(1) == 27) break; // Press ESC to exit
     }
 
@@ -44,6 +44,10 @@ cv::Mat detectFace(cv::Mat image) {
 
     for (const auto& face : faces){
       cv::rectangle(image, face, cv::Scalar(255, 0, 0), 2);
+
+      if (face.width > 100) {
+          cv::putText(image, "SHOOT!", cv::Point(face.x, face.y - 10), cv::FONT_HERSHEY_SIMPLEX, 0.9, cv::Scalar(255, 0, 0), 2);
+      }
     }
 
     return image;
